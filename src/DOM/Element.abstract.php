@@ -198,6 +198,78 @@ abstract class Element implements \DOM\Interfaces\Element, \Iterator, \Countable
 	}
 
 	/**
+	 * Find all children with specific tagname.
+	 * @access	public
+	 * @param 	string	$tagname	Tagname.
+	 *
+	 * @return 	array
+	 */
+	public function getElementsByTagName ($tagname)
+	{
+		$children = array();
+
+		/**
+		 * @var	$child	\DOM\Element|\DOM\Raw
+		 */
+		foreach ($this as $child){
+			if (!($child instanceof \DOM\Element)){
+				continue;
+			}
+
+			if ($child->getTagName() == $tagname){
+				$children[] = $child;
+			}
+
+			$recursive = $child->getElementsByTagName($tagname);
+
+			if (!empty($recursive)){
+				$children = array_merge($children, $recursive);
+			}
+
+		}
+
+		return $children;
+	}
+
+	/**
+	 * Find all children with specific attribute.
+	 * It's possible filter children by attribute value.
+	 * value param could be a regex.
+	 * @access	public
+	 * @param	string		$attribute	Attribute that must be present in child element.
+	 * @param 	null|string	$value		Value that attribute must be contain. Could be a valid
+	 *                             		regex. Default is null. [Optional]
+	 *
+	 * @return 	array
+	 */
+	public function getElementsByAttribute ($attribute, $value = null)
+	{
+		$children = array();
+
+		/**
+		 * @var	$child	\DOM\Element|\DOM\Raw
+		 */
+		foreach ($this as $child){
+			if (!($child instanceof \DOM\Element)){
+				continue;
+			}
+
+			if ($child->hasAttribute($attribute) && (!isset($value) || (isset($value) && $child->getAttribute($attribute) == $value) || (isset($value) && @preg_match($value, $child->getAttribute($attribute)) === 1))){
+				$children[] = $child;
+			}
+
+			$recursive = $child->getElementsByAttribute($attribute, $value);
+
+			if (!empty($recursive)){
+				$children = array_merge($children, $recursive);
+			}
+
+		}
+
+		return $children;
+	}
+
+	/**
 	 * Compile object to string and return it.
 	 * @access	public
 	 *
