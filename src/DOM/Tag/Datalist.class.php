@@ -14,7 +14,6 @@ namespace DOM\Tag;
  * @namespace   DOM\Tag
  * @package		DOM
  * @see			\DOM\Element
- * 
  */
 class Datalist extends \DOM\Element
 {

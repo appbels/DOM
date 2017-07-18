@@ -27,6 +27,7 @@ class Keygen extends \DOM\Element
 	public function __construct ()
 	{
 		parent::__construct();
+		$this->autoclose = true;
 	}
 
 	/**

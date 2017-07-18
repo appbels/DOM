@@ -14,7 +14,6 @@ namespace DOM\Tag;
  * @namespace   DOM\Tag
  * @package		DOM
  * @see			\DOM\Element
- * 
  */
 class H6 extends \DOM\Element
 {

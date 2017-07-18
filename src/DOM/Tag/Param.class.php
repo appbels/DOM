@@ -14,7 +14,6 @@ namespace DOM\Tag;
  * @namespace   DOM\Tag
  * @package		DOM
  * @see			\DOM\Element
- * 
  */
 class Param extends \DOM\Element
 {
@@ -27,6 +26,7 @@ class Param extends \DOM\Element
 	public function __construct ()
 	{
 		parent::__construct();
+		$this->autoclose = true;
 	}
 
 	/**
